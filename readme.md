@@ -155,3 +155,51 @@ Y lo cargamos desde el *index.html*
   ...
 </body>
 ~~~
+
+<a name="methods"></a>
+## 5. Métodos
+Los métodos son funciones que ejecutan en el componente y que son lanzadas por eventos del mismo.
+
+Creamos un nuevo archivo en components *methods.js
+
+~~~
+Vue.component('methods', {
+  data () {
+    return {
+      name: 'Israel',
+      surname: 'Parra'
+    }
+  },
+  computed: {
+    fullName () {
+      return `${this.name} ${this.surname}`;
+    }
+  },
+  methods: {
+    hello () {
+      alert(this.fullName);
+    }
+  },
+  template: `
+    <div>
+      <h2>Ejecutar métodos con Vuejs</h2>
+      <p @click="hello">Pulsa aquí para ejecutar el método hello</p>
+    </div>
+  `
+});
+~~~
+
+Y lo cargamos desde el *index.html*
+
+~~~
+<head>
+  ...
+  <script src="components/methods.js"></script>
+  ...
+</head>
+<body>
+  ...
+  <methods></methods>
+  ...
+</body>
+~~~
