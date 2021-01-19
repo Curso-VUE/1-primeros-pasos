@@ -113,3 +113,45 @@ En el *index.html* cargamos el componente:
   </body>
 ~~~
 
+<a name="computed"></a>
+## 4. Propiedades Calculadas
+Son propiedades generadas a partir de otras propiedades del componente.
+
+Creamos un nuevo archivo en components *computed-properties*:
+
+~~~
+Vue.component('computed-properties', {
+  data() {
+    return {
+      name: 'Israel',
+      surname: 'Parra'
+    }
+  },
+  computed: {
+    fullName () {
+      return `${this.name} ${this.surname}`;
+    }
+  },
+  template: `
+    <div>
+      <h2>Computed Properties</h2>
+      <p>{{fullName}}</p>
+    </div>
+  `
+});
+~~~
+
+Y lo cargamos desde el *index.html*
+
+~~~
+<head>
+  ...
+  <script src="components/computed-properties.js"></script>
+  ...
+</head>
+<body>
+  ...
+  <computed-properties></computed-properties>
+  ...
+</body>
+~~~
