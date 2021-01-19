@@ -203,3 +203,43 @@ Y lo cargamos desde el *index.html*
   ...
 </body>
 ~~~
+
+<a name="binding"></a>
+## 6. Data binding con v-model
+Data binding permite que una variable almacene los cambios realizados sobre ella desde el template.
+
+Creamos un nuevo archivo en *components" *vmodel.js*.
+
+~~~
+Vue.component('vmodel', {
+  data () {
+    return {
+      framework: 'Vuejs 2'
+    }
+  },
+  template: `
+    <div>
+      <h2>Trabajando con v-model</h2>
+      <input v-model="framework" />
+      <p>El framework escogido es: {{ framework }}</p>
+    </div>
+  `
+});
+~~~
+
+Y lo cargamos desde el *index.html*
+
+~~~
+<head>
+  ...
+  <script src="components/vmodel.js"></script>
+  ...
+</head>
+<body>
+  ...
+  <vmodel></vmodel>
+  ...
+</body>
+~~~
+
+Comprobamos como el valor de framework funciona como value del input y cuando se modifica queda reflejado en el párrafo siguiente.
