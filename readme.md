@@ -243,3 +243,48 @@ Y lo cargamos desde el *index.html*
 ~~~
 
 Comprobamos como el valor de framework funciona como value del input y cuando se modifica queda reflejado en el párrafo siguiente.
+
+<a name="binding"></a>
+## 7. Data binding con v-model y arrays
+
+
+Creamos un nuevo archivo en *components" *vmodel-checkboxes.js*.
+
+~~~
+Vue.component('vmodel-checkboxes', {
+  data () {
+    return {
+      frameworks: []
+    }
+  },
+  template: `
+    <div>
+      <h2>vmodel con arrays</h2>
+      <input type="checkbox" id="vuejs2" value="VueJS 2" v-model="frameworks" />
+      <label for="vuejs2">VueJS 2</label>
+      <input type="checkbox" id="angular" value="Angular" v-model="frameworks" />
+      <label for="angular">Angular</label>
+      <input type="checkbox" id="reactjs" value="ReactJS" v-model="frameworks" />
+      <label for="reactjs">ReactJS</label>
+      <p>Frameworks seleccionados: {{ frameworks }}</p>
+    </div>
+  `
+});
+~~~
+
+Y lo cargamos desde el *index.html*
+
+~~~
+<head>
+  ...
+  <script src="components/vmodel-checkboxes.js"></script>
+  ...
+</head>
+<body>
+  ...
+  <vmodel-checkboxes></vmodel-checkboxes>
+  ...
+</body>
+~~~
+
+Desmarcando y marcando los checkboxes podemos ver como se modifica el contenido de *frameworks*.
