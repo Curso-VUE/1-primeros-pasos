@@ -6,6 +6,8 @@
 4. [Propiedades Calculadas](#computed)
 5. [Métodos](#methods)
 6. [Data Binding con v-model](#binding)
+7. [Data binding con v-model y arrays](#binding-array)
+8. [Eventos](#events)
 
 <a name="intro"></a>
 ## 1. Introducción
@@ -244,7 +246,7 @@ Y lo cargamos desde el *index.html*
 
 Comprobamos como el valor de framework funciona como value del input y cuando se modifica queda reflejado en el párrafo siguiente.
 
-<a name="binding"></a>
+<a name="binding-array"></a>
 ## 7. Data binding con v-model y arrays
 
 
@@ -288,3 +290,58 @@ Y lo cargamos desde el *index.html*
 ~~~
 
 Desmarcando y marcando los checkboxes podemos ver como se modifica el contenido de *frameworks*.
+
+<a name="events"></a>
+## 8. Eventos
+
+Los eventos se emiten siempre del componente hijo al componente padre.
+
+En la carpeta components creamos un nuevo archivo *emit.js*. En el template especificamos el nombre del evento que vamos a emitir y el parámetro que enviamos al componente padre. **El nombre del evento debe de estár en minúsculas**
+
+~~~
+Vue.component('emit', {
+  data () {
+    return {
+      carBrand: 'Toyota'
+    }
+  },
+  template: `
+    <div>
+      <h2>Emitir enventos con Vuejs 2</h2>
+      <p @click="$emit('show_car_brand', carBrand)">
+        Pulsa aqui para emitir un evento a la instancia ROOT de Vuejs
+      </p>
+    </div>
+  `
+});
+~~~
+
+Cargamos el nuevo componente desde el *index.html*: 
+
+~~~
+<head>
+  ...
+  <script src="components/event.js"></script>
+  ...
+</head>
+<body>
+  ...
+    <emit @show_car_brand="showCarBrandFromEmitCmp"></emit>
+  ...
+</body>
+~~~
+
+Definimos la función showCarBrandFromEmitCmp en el script que instancia el componente root en *index.html*:
+
+~~~
+  <script>
+    new Vue({
+      el: '#app',
+      methods: {
+        showCarBrandFromEmitCmp(carBrand) {
+          alert(carBrand)
+        }
+      }
+    })
+  </script>
+~~~

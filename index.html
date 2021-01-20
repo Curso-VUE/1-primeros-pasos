@@ -9,6 +9,7 @@
     <script src="components/methods.js"></script>
     <script src="components/vmodel.js"></script>
     <script src="components/vmodel-checkboxes.js"></script>
+    <script src="components/emit.js"></script>
   </head>
   <body>
     <div id="app">
@@ -17,10 +18,16 @@
       <methods></methods>
       <vmodel></vmodel>
       <vmodel-checkboxes></vmodel-checkboxes>
+      <emit @show_car_brand="showCarBrandFromEmitCmp"></emit>
     </div>
     <script>
       new Vue({
         el: '#app',
+        methods: {
+          showCarBrandFromEmitCmp(carBrand) {
+            alert(carBrand)
+          }
+        }
       })
     </script>
   </body>
