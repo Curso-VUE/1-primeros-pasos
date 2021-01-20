@@ -397,3 +397,49 @@ Cargamos el nuevo componente en *index.html*
 ~~~
 
 De esta forma, utilizando ```$parent.appName``` estamos accediendo desde el componente hijo a la variable appName del componente padre. Pueden concatenrase varias llamadas a ```$parent.parent.parent...``` para subir varios niveles.
+
+<a name="child"></a>
+## 9. Acceso a datos del componente hijo utilizando referencias
+
+En la carpeta *components* creamos un nuevo archivo *child-data.js* en donde la variable cmpName será la que recuperaremos del componente padre:
+
+~~~
+Vue.component('child-data', {
+  data () {
+    return {
+      cmpName: 'Child Data CMP'
+    }
+  },
+  template: `
+    <div>
+      <h2>Acceso a datos del cmp hijo desde el cmp padre</h2>
+</div>
+  `
+});
+~~~
+
+En *index.html* cargamos el nuevo componente y creamos la referencia:
+
+~~~
+<head>
+  ...
+    <script src="components/child-data.js"></script>
+  ...
+</head>
+<body>
+  ...
+      <child-data ref="childData"></child-data>
+  ...
+</body>
+~~~
+
+En la instacia del componente root definimos el método *mounted* que se ejecutará cuando se haya montado el componente root, y desde él accedemos a la variable del componente hijo.
+
+~~~
+...
+  mounted() {
+    const cmpName = this.$refs.childData.cmpName;
+    console.log(cmpName)
+  },
+...
+~~~
