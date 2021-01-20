@@ -2,12 +2,16 @@
 
 1. [Introducción](#intro)
 2. [Hola Mundo](#helloworld)
-3. [Primer Componente](#component)
-4. [Propiedades Calculadas](#computed)
+3. [Primer componente](#component)
+4. [Propiedades calculadas](#computed)
 5. [Métodos](#methods)
-6. [Data Binding con v-model](#binding)
+6. [Data binding con v-model](#binding)
 7. [Data binding con v-model y arrays](#binding-array)
 8. [Eventos](#events)
+9. [Acceso a datos del componente padre](#parent)
+10. [Acceso a datos del componente hijo utilizando referencias](#child)
+
+<hr>
 
 <a name="intro"></a>
 ## 1. Introducción
@@ -75,7 +79,7 @@ En el *body* del HTML incluimos el template y el script con el código:
 ~~~
 
 <a name="component"></a>
-## 3. Primer Componente
+## 3. Primer componente
 
 Creamos una carpeta *components^y dentro de ella un archivo *message.js*.
 
@@ -116,7 +120,7 @@ En el *index.html* cargamos el componente:
 ~~~
 
 <a name="computed"></a>
-## 4. Propiedades Calculadas
+## 4. Propiedades calculadas
 Son propiedades generadas a partir de otras propiedades del componente.
 
 Creamos un nuevo archivo en components *computed-properties*:
@@ -345,3 +349,51 @@ Definimos la función showCarBrandFromEmitCmp en el script que instancia el comp
     })
   </script>
 ~~~
+
+<a name="parent"></a>
+## 9. Acceso a datos del componente padre
+
+Creamos en *index.html*, en la instancia del componente root una variable a la que queremos acceder desde un componente hijo:
+
+~~~
+...
+ new Vue({
+  el: '#app',
+  data () {
+    return {
+      appName: 'Iniciando con VueJS 2'
+    }
+  },
+  methods: {
+...
+~~~
+
+Creamos en *components* un nuevo archivo *parent-data.js*:
+
+~~~
+Vue.component('parent-data', {
+  template: `
+    <div>
+      <h2>Acceso a datos del cmp padre desde el cmp hijo</h2>
+      <p>{{ $parent.appName }}</p>
+</div>
+  `
+});
+~~~
+
+Cargamos el nuevo componente en *index.html*
+
+~~~
+<head>
+  ...
+    <script src="components/parent-data.js"></script>
+  ...
+</head>
+<body>
+  ...
+      <parent-data></parent-data>
+  ...
+</body>
+~~~
+
+De esta forma, utilizando ```$parent.appName``` estamos accediendo desde el componente hijo a la variable appName del componente padre. Pueden concatenrase varias llamadas a ```$parent.parent.parent...``` para subir varios niveles.

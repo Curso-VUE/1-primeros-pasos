@@ -10,6 +10,7 @@
     <script src="components/vmodel.js"></script>
     <script src="components/vmodel-checkboxes.js"></script>
     <script src="components/emit.js"></script>
+    <script src="components/parent-data.js"></script>
   </head>
   <body>
     <div id="app">
@@ -19,10 +20,16 @@
       <vmodel></vmodel>
       <vmodel-checkboxes></vmodel-checkboxes>
       <emit @show_car_brand="showCarBrandFromEmitCmp"></emit>
+      <parent-data></parent-data>
     </div>
     <script>
       new Vue({
         el: '#app',
+        data () {
+          return {
+            appName: 'Iniciando con VueJS 2'
+          }
+        },
         methods: {
           showCarBrandFromEmitCmp(carBrand) {
             alert(carBrand)
