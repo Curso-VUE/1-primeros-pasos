@@ -11,6 +11,8 @@
 9. [Acceso a datos del componente padre](#parent)
 10. [Acceso a datos del componente hijo utilizando referencias](#child)
 11. [Acceso a datos del componente hijo utilizando referencias](#child-methods)
+12. [Introducción a fomularios. Login básico](#forms)
+
 
 <hr>
 
@@ -496,4 +498,64 @@ mounted() {
   }, 1000);
 },
 ...
+~~~
+
+<a name="forms"></a>
+## 12. Introducción a formularios. Login básico
+Creamos un nuevo componente *login-form* en la carpeta components.
+
+Los datos del componente serán el usuario (email y contraseña) y el estado del login:
+~~~
+  data  () {
+    return {
+      logged: false,
+      user: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+~~~
+
+El método login cambiárá el estado del *logged*.
+
+~~~
+  methods: {
+    login () {
+      this.logged = this.user.email === 'test@m.com' && this.user.password === "1234"
+    }
+  },
+~~~
+
+En el template hacemos uso de la directiva v-show para mostrar o no contenido html en función de una condición.
+
+~~~
+  template: `
+    <div>
+      <h2>Formulario de login</h2>
+      <p v-show="logged" style="background: green; color: white">
+        Has iniciado sesión con los datos: {{ user }}
+      </p>
+      <form @submit.prevent="login">
+        <input autocomplete="off" type="email" v-model="user.email" name="email"/>
+        <input type="password" v-model="user.password" name="password"/>
+        <input type="submit" value="Iniciar sesión" />
+      </form>
+    </div>
+  `
+~~~
+
+Cargamos el nuevo componente en *index.html*:
+
+~~~
+<head>
+  ...
+    <script src="components/login-form.js"></script>
+  ...
+</head>
+<body>
+  ...
+      <login-form></login-form>
+  ...
+</body>
 ~~~

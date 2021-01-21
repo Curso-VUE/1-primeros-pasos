@@ -13,6 +13,7 @@
     <script src="components/parent-data.js"></script>
     <script src="components/child-data.js"></script>
     <script src="components/child-methods.js"></script>
+    <script src="components/login-form.js"></script>
   </head>
   <body>
     <div id="app">
@@ -22,9 +23,10 @@
       <vmodel></vmodel>
       <vmodel-checkboxes></vmodel-checkboxes>
       <emit @show_car_brand="showCarBrandFromEmitCmp"></emit>
-      <parent-data></parent-data>
+      <child-methods ref="childMethods"></child-methods>
       <child-data ref="childData"></child-data>
       <child-methods ref="childMethods"></child-methods>
+      <login-form></login-form>
     </div>
     <script>
       new Vue({
