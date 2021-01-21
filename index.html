@@ -12,6 +12,7 @@
     <script src="components/emit.js"></script>
     <script src="components/parent-data.js"></script>
     <script src="components/child-data.js"></script>
+    <script src="components/child-methods.js"></script>
   </head>
   <body>
     <div id="app">
@@ -23,6 +24,7 @@
       <emit @show_car_brand="showCarBrandFromEmitCmp"></emit>
       <parent-data></parent-data>
       <child-data ref="childData"></child-data>
+      <child-methods ref="childMethods"></child-methods>
     </div>
     <script>
       new Vue({
@@ -34,7 +36,10 @@
         },
         mounted() {
           const cmpName = this.$refs.childData.cmpName;
-          console.log(cmpName)
+          console.log(cmpName);
+          setTimeout(() => {
+            this.$refs.childMethods.showCmpName()
+          }, 1000);
         },
         methods: {
           showCarBrandFromEmitCmp(carBrand) {

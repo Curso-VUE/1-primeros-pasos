@@ -10,6 +10,7 @@
 8. [Eventos](#events)
 9. [Acceso a datos del componente padre](#parent)
 10. [Acceso a datos del componente hijo utilizando referencias](#child)
+11. [Acceso a datos del componente hijo utilizando referencias](#child-methods)
 
 <hr>
 
@@ -399,7 +400,7 @@ Cargamos el nuevo componente en *index.html*
 De esta forma, utilizando ```$parent.appName``` estamos accediendo desde el componente hijo a la variable appName del componente padre. Pueden concatenrase varias llamadas a ```$parent.parent.parent...``` para subir varios niveles.
 
 <a name="child"></a>
-## 9. Acceso a datos del componente hijo utilizando referencias
+## 10. Acceso a datos del componente hijo utilizando referencias
 
 En la carpeta *components* creamos un nuevo archivo *child-data.js* en donde la variable cmpName será la que recuperaremos del componente padre:
 
@@ -441,5 +442,58 @@ En la instacia del componente root definimos el método *mounted* que se ejecuta
     const cmpName = this.$refs.childData.cmpName;
     console.log(cmpName)
   },
+...
+~~~
+
+<a name="child-methods"></a>
+##11. Acceso a metodos del componente hijo utilizando referencias
+
+De forma análoga, creamos en *components* un archivo *child-methods.js*:
+
+~~~
+Vue.component('child-methods', {
+  data () {
+    return {
+      cmpName: 'Child Methods CMP'
+    }
+  },
+  methods: {
+    showCmpName() {
+      console.log(this.cmpName)
+    }
+  },
+  template: `
+    <div>
+      <h2>Acceso a métodods del cmp hijo desde el cmp padre</h2>
+</div>
+  `
+});
+~~~
+
+En *index.html* cargamos el nuevo componente y creamos la referencia:
+
+~~~
+<head>
+  ...
+    <script src="components/child-methods.js"></script>
+  ...
+</head>
+<body>
+  ...
+      <child-methods ref="childMethods"></child-methods>
+  ...
+</body>
+~~~
+
+En el método *mounted* invocamos el método del componente hijo.
+
+~~~
+...
+mounted() {
+...
+  setTimeout(() => {
+    this.$refs.childMethods.showCmpName()
+  }, 1000);
+},
 ...
 ~~~
