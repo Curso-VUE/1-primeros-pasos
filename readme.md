@@ -12,6 +12,7 @@
 10. [Acceso a datos del componente hijo utilizando referencias](#child)
 11. [Acceso a datos del componente hijo utilizando referencias](#child-methods)
 12. [Introducción a fomularios. Login básico](#forms)
+13. [Bucles con v-for](#loops)
 
 
 <hr>
@@ -42,7 +43,7 @@ var app = new Vue({
 <a name="helloworld"></a>
 ## 2. Hola Mundo
 
-Vamos a utilizar directamente el CDN de vue. Creamos un *index.html* e incluimos el script del cdn en su head:
+En esta introducción vamos a utilizar directamente el CDN de vue. Creamos un *index.html* e incluimos el script del cdn en su head:
 
 ~~~
 <!DOCTYPE html>
@@ -84,7 +85,11 @@ En el *body* del HTML incluimos el template y el script con el código:
 <a name="component"></a>
 ## 3. Primer componente
 
-Creamos una carpeta *components^y dentro de ella un archivo *message.js*.
+Para esta introducción vamos a reutilizar el archivo *index.html* anterior, en cargaremos el componente en la sección **head** del HTML dentro de etiquetas **script** y visualizaremos los distintos componentes que vayamos generando dentro del **div con id="app"**.
+
+Los nuevos componentes se definirán dentro de la carpeta components en archivos *.js*.
+
+Generamos un nuevo componente *message.js*.
 
 ~~~
 Vue.component('message', {
@@ -102,31 +107,11 @@ Vue.component('message', {
 });
 ~~~
 
-En el *index.html* cargamos el componente:
-
-~~~
-<head>
-  ...
-  <script src="components/message.js"></script>
-  ...
-</head>
-  <body>
-    <div id="app">
-      <message></message>
-    </div>
-    <script>
-      new Vue({
-        el: '#app',
-      })
-    </script>
-  </body>
-~~~
-
 <a name="computed"></a>
 ## 4. Propiedades calculadas
 Son propiedades generadas a partir de otras propiedades del componente.
 
-Creamos un nuevo archivo en components *computed-properties*:
+Creamos un nuevo componente *computed-properties*:
 
 ~~~
 Vue.component('computed-properties', {
@@ -150,26 +135,11 @@ Vue.component('computed-properties', {
 });
 ~~~
 
-Y lo cargamos desde el *index.html*
-
-~~~
-<head>
-  ...
-  <script src="components/computed-properties.js"></script>
-  ...
-</head>
-<body>
-  ...
-  <computed-properties></computed-properties>
-  ...
-</body>
-~~~
-
 <a name="methods"></a>
 ## 5. Métodos
 Los métodos son funciones que ejecutan en el componente y que son lanzadas por eventos del mismo.
 
-Creamos un nuevo archivo en components *methods.js
+Creamos un nuevo componente *methods.js
 
 ~~~
 Vue.component('methods', {
@@ -198,26 +168,11 @@ Vue.component('methods', {
 });
 ~~~
 
-Y lo cargamos desde el *index.html*
-
-~~~
-<head>
-  ...
-  <script src="components/methods.js"></script>
-  ...
-</head>
-<body>
-  ...
-  <methods></methods>
-  ...
-</body>
-~~~
-
 <a name="binding"></a>
 ## 6. Data binding con v-model
 Data binding permite que una variable almacene los cambios realizados sobre ella desde el template.
 
-Creamos un nuevo archivo en *components" *vmodel.js*.
+Creamos un nuevo componente *vmodel.js*.
 
 ~~~
 Vue.component('vmodel', {
@@ -236,28 +191,13 @@ Vue.component('vmodel', {
 });
 ~~~
 
-Y lo cargamos desde el *index.html*
-
-~~~
-<head>
-  ...
-  <script src="components/vmodel.js"></script>
-  ...
-</head>
-<body>
-  ...
-  <vmodel></vmodel>
-  ...
-</body>
-~~~
-
 Comprobamos como el valor de framework funciona como value del input y cuando se modifica queda reflejado en el párrafo siguiente.
 
 <a name="binding-array"></a>
 ## 7. Data binding con v-model y arrays
 
 
-Creamos un nuevo archivo en *components" *vmodel-checkboxes.js*.
+Creamos un nuevo componente *vmodel-checkboxes.js*.
 
 ~~~
 Vue.component('vmodel-checkboxes', {
@@ -281,21 +221,6 @@ Vue.component('vmodel-checkboxes', {
 });
 ~~~
 
-Y lo cargamos desde el *index.html*
-
-~~~
-<head>
-  ...
-  <script src="components/vmodel-checkboxes.js"></script>
-  ...
-</head>
-<body>
-  ...
-  <vmodel-checkboxes></vmodel-checkboxes>
-  ...
-</body>
-~~~
-
 Desmarcando y marcando los checkboxes podemos ver como se modifica el contenido de *frameworks*.
 
 <a name="events"></a>
@@ -303,7 +228,7 @@ Desmarcando y marcando los checkboxes podemos ver como se modifica el contenido 
 
 Los eventos se emiten siempre del componente hijo al componente padre.
 
-En la carpeta components creamos un nuevo archivo *emit.js*. En el template especificamos el nombre del evento que vamos a emitir y el parámetro que enviamos al componente padre. **El nombre del evento debe de estár en minúsculas**
+Creamos un nuevo componente *emit.js*. En el template especificamos el nombre del evento que vamos a emitir y el parámetro que enviamos al componente padre. **El nombre del evento debe de estár en minúsculas**
 
 ~~~
 Vue.component('emit', {
@@ -323,7 +248,7 @@ Vue.component('emit', {
 });
 ~~~
 
-Cargamos el nuevo componente desde el *index.html*: 
+En este caso, en el componente padre debemos espedificar el evento:
 
 ~~~
 <head>
@@ -371,7 +296,7 @@ Creamos en *index.html*, en la instancia del componente root una variable a la q
 ...
 ~~~
 
-Creamos en *components* un nuevo archivo *parent-data.js*:
+Creamos un nuevo componente *parent-data.js*:
 
 ~~~
 Vue.component('parent-data', {
@@ -384,27 +309,12 @@ Vue.component('parent-data', {
 });
 ~~~
 
-Cargamos el nuevo componente en *index.html*
-
-~~~
-<head>
-  ...
-    <script src="components/parent-data.js"></script>
-  ...
-</head>
-<body>
-  ...
-      <parent-data></parent-data>
-  ...
-</body>
-~~~
-
 De esta forma, utilizando ```$parent.appName``` estamos accediendo desde el componente hijo a la variable appName del componente padre. Pueden concatenrase varias llamadas a ```$parent.parent.parent...``` para subir varios niveles.
 
 <a name="child"></a>
 ## 10. Acceso a datos del componente hijo utilizando referencias
 
-En la carpeta *components* creamos un nuevo archivo *child-data.js* en donde la variable cmpName será la que recuperaremos del componente padre:
+Creamos un nuevo componente *child-data.js* en donde la variable cmpName será la que recuperaremos del componente padre:
 
 ~~~
 Vue.component('child-data', {
@@ -450,7 +360,7 @@ En la instacia del componente root definimos el método *mounted* que se ejecuta
 <a name="child-methods"></a>
 ##11. Acceso a metodos del componente hijo utilizando referencias
 
-De forma análoga, creamos en *components* un archivo *child-methods.js*:
+Creamos un nuevo componente *child-methods.js*:
 
 ~~~
 Vue.component('child-methods', {
@@ -502,7 +412,7 @@ mounted() {
 
 <a name="forms"></a>
 ## 12. Introducción a formularios. Login básico
-Creamos un nuevo componente *login-form* en la carpeta components.
+Creamos un nuevo componente *login-form*.
 
 Los datos del componente serán el usuario (email y contraseña) y el estado del login:
 ~~~
@@ -545,17 +455,40 @@ En el template hacemos uso de la directiva v-show para mostrar o no contenido ht
   `
 ~~~
 
-Cargamos el nuevo componente en *index.html*:
+<a name="loops"></a>
+## 13. Bucles con v-for
+
+Creamos un nuevo componente *loops.js*.
 
 ~~~
-<head>
-  ...
-    <script src="components/login-form.js"></script>
-  ...
-</head>
-<body>
-  ...
-      <login-form></login-form>
-  ...
-</body>
+Vue.component('loops', {
+  data () {
+    return {
+      frameworks: [
+        {id: 1, name: "VueJS 2"},
+        {id: 2, name: "ReactJS"},
+        {id: 3, name: "Ember"},
+        {id: 4, name: "AdonisJS"},
+        {id: 5, name: "Angular"},
+        {id: 6, name: "Laravel"}
+      ]
+    }
+  },
+  template:`
+  <div v-if="frameworks.length">
+    <h2>Bucles con v-for</h2>
+    <ul>
+      <li v-for="framework in frameworks" :key="framework.id">
+        {{ framework.name }}
+      </li>
+    </ul>
+  </div>
+  `
+})
 ~~~
+
+En este componente utilizamos nuevos conceptos:
+- Directiva v-for para iterar en un elemento HTML.
+- Directiva v-if para no mostrar el elemento en el caso en el que no haya datos sobre los que iterar.
+- Como buena práctica, debemos siempre en los elementos sobre los que iteramos establecer una key única. Utilizamos *:key* para indicar que la key es una variable.
+
