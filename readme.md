@@ -16,6 +16,7 @@
 14. [Condicionales con v-if](#conditionals)
 15. [Slots. Ejemplo de layout](#slots)
 16. [Watchers](#watchers)
+17. [Computed properties con getters y setters](#computed2)
 
 
 <hr>
@@ -612,4 +613,45 @@ Establecemos un método que permita obtener por fetch un usuario random y actual
 ...
 ~~~
 
-Establecemos un watcher que detecte un cambio en la variable **user** y permita actualizar el valor de **olduser**
+Establecemos un watcher que detecte un cambio en la variable **user** y permita actualizar el valor de **olduser**.
+
+<a name="computed2"></a>
+## 17. Computed properties cpn getters y setters
+
+Permiten establecer y recuperar la información modificada de una variable sin modificar su valor.
+
+Generamos un nuevo componente *computed-properties-get-set.js*
+
+~~~
+Vue.component('computed-properties-get-set', {
+  data () {
+    return {
+      amount: 0
+    }
+  },
+  template: `
+    <div>
+      <h2>Computed Properties get && set</h2>
+      <input v-model="amount" />
+      <p>{{ amountFormatted }}</p>
+    </div>
+  `
+});
+~~~
+
+Establecemos como variables calculadas lo siguiente:
+
+~~~
+  computed: {
+    amountFormatted: {
+      get() {
+        return `${this.amount}€`;
+      },
+      set(newValue) {
+        this.amount = newValue;
+      }
+    }
+  },
+~~~
+
+El **get** establecerá el formato que se quiere recuperar y el **set** simplemente establecerá el valor.
