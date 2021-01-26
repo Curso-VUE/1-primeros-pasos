@@ -18,6 +18,7 @@
 16. [Watchers](#watchers)
 17. [Computed properties con getters y setters](#computed2)
 18. [Carga de componentes dinámicos con *component*](#dynamic)
+19. [Mixins](#mixins)
 
 <hr>
 
@@ -613,7 +614,7 @@ Establecemos un método que permita obtener por fetch un usuario random y actual
 ...
 ~~~
 
-Establecemos un watcher que detecte un cambio en la variable **user** y permita actualizar el valor de **olduser**.
+Establecemos un watcher que detecte un cambio en la variable **user** y permita actualizar el valor de **oldUser**.
 
 <a name="computed2"></a>
 ## 17. Computed properties cpn getters y setters
@@ -691,3 +692,58 @@ Vue.component('load-dynamic-components', {
 ~~~
 
 A la etiqueta *component* le pasamos la directiva :is en donde establecemos el nombre del componente que debe cargarse en cada momento. El evento que genera cada botón permitirá que se carguen los componentes de forma dinámica.
+
+<a name="mixins"></a>
+## 19. Mixins
+
+Un mixin es una forma de heredar datos para poder reutilizar información.
+
+Generamos un nuevo componente *mixiins.js* que va a contener dos mixins. En este caso, se mezclan los elementos de ambos mixin, y en el caso en el que sus keys sean iguales, se sobrescriben.
+
+~~~
+let myMixin = {
+  mounted () {
+    console.log('MIXIN 1 init');
+    console.log(this.mixinData);
+    this.test()
+  },
+  data () {
+    return {
+      mixinData: 'Mixin Data 1'
+    }
+  },
+  methods: {
+    test() {
+      console.log('test from mixin');
+    }
+  }
+}
+
+let myMixin2 = {
+  mounted () {
+    console.log('MIXIN 2 init');
+    console.log(this.mixinData);
+    console.log(this.mixinData2);
+    this.test()
+  },
+  data () {
+    return {
+      mixinData: 'Overwriting data',
+      mixinData2: 'Mixin Data 2'
+    }
+  },
+}
+
+Vue.component('mixins', {
+  mixins: [myMixin, myMixin2],
+  template: `
+  <div>
+    <h2>Uso de mixins</h2>
+  </div>
+  `
+})
+~~~
+
+La salida que se obtiene por consola tras la carga será la siguiente:
+
+![mixins](./images/mixins.png)
