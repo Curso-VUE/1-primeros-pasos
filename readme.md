@@ -15,6 +15,7 @@
 13. [Bucles con v-for](#loops)
 14. [Condicionales con v-if](#conditionals)
 15. [Slots. Ejemplo de layout](#slots)
+16. [Watchers](#watchers)
 
 
 <hr>
@@ -565,3 +566,50 @@ En el *index.html* redefinimos el contenido del template de la siguiente forma:
 ~~~
 
 Todo lo que esté fuera de los distintos templates formará parte de lo definido con la etiqueta slot en el template sin asignarle nombre (en nuestro caso dentro de las etiquetas main).
+
+<a name="watchers"></a>
+## 16. Watchers
+
+Los watchers son una zona de un componente que permite revisar de forma constante los cambios en un dato.
+
+Generamos un nuevo componente *watchers.js*:
+
+~~~
+Vue.component('watchers', {
+  data () {
+    return {
+      user: null,
+      oldUser: null
+    }
+  },
+  template: `
+  <div>
+    <h2>Watchers con VueJS 2</h2>
+    <p>Nuevo usuario: {{ user }}</p>
+    <p>Anterior usuario: {{ oldUser }}</p>
+    <button @click="randomUser">Obtener un usuario aleatorio</button>
+  </div>
+  `
+})
+~~~
+
+Establecemos un método que permita obtener por fetch un usuario random y actualizar el valor de **user**:
+
+~~~
+...
+  methods: {
+    async randomUser () {
+      try {
+        const data = await fetch('https://randomuser.me/api/');
+        const json = await data.json();
+        const user = json.results[0];
+        this.user = `${user.name.title} ${user.name.first} ${user.name.last}`;
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+...
+~~~
+
+Establecemos un watcher que detecte un cambio en la variable **user** y permita actualizar el valor de **olduser**
