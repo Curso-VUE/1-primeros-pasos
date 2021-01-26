@@ -17,7 +17,7 @@
 15. [Slots. Ejemplo de layout](#slots)
 16. [Watchers](#watchers)
 17. [Computed properties con getters y setters](#computed2)
-
+18. [Carga de componentes dinámicos con *component*](#dynamic)
 
 <hr>
 
@@ -655,3 +655,39 @@ Establecemos como variables calculadas lo siguiente:
 ~~~
 
 El **get** establecerá el formato que se quiere recuperar y el **set** simplemente establecerá el valor.
+
+<a name="dynamic"></a>
+## 19. Carga de componentes dinámicos con *component*
+
+Permite de forma dinámica establecer los componentes que se muestran.
+
+Creamos una carpeta *dynamic-components* con 3 componentes que contengan únicamente una template para ver cómo se cambia de uno a otro.
+
+Generamos un nuevo componente *load-dynamic-component.js*:
+
+~~~
+Vue.component('load-dynamic-components', {
+  data() {
+    return {
+      components: ['cmp1', 'cmp2', 'cmp3'],
+      currentComponent: 'cmp1'
+    }
+  },
+  methods: {
+    changeComponent (cmp) {
+      this.currentComponent = cmp;
+    }
+  },
+  template: `
+  <div>
+    <h2>Componentes dinámicos</h2>
+    <button v-for="cmp in components" @click="changeComponent(cmp)">
+      Seleccionar {{ cmp }}
+    </button>
+    <component :is="currentComponent" />
+  </div>
+  `
+})
+~~~
+
+A la etiqueta *component* le pasamos la directiva :is en donde establecemos el nombre del componente que debe cargarse en cada momento. El evento que genera cada botón permitirá que se carguen los componentes de forma dinámica.
