@@ -14,6 +14,7 @@
 12. [Introducción a fomularios. Login básico](#forms)
 13. [Bucles con v-for](#loops)
 14. [Condicionales con v-if](#conditionals)
+15. [Slots. Ejemplo de layout](#slots)
 
 
 <hr>
@@ -519,3 +520,48 @@ Vue.component('conditionals', {
 ~~~
 
 En función del valor que se introduzca en el input se mostrará uno u otro mensaje.
+
+<a name="slots"></a>
+## 15. Slots. Ejemplo de layout
+
+Los slots permiten definir layouts en donde se pueda sobreesribir partes del cógigo.
+
+Generamos un nuevo componente *slots.js*.
+
+~~~
+Vue.component('slots', {
+  template: `
+  <div>
+    <h2>Slots, ejemplo de layout</h2>
+    <div>
+      <header>
+        <slot name="header"></slot>
+      </header>
+      <main>
+        <slot></slot>
+      </main> 
+      <footer>
+        <slot name="footer"></slot>
+      </footer> 
+    </div>
+  </div>
+  `
+});
+~~~
+
+En el *index.html* redefinimos el contenido del template de la siguiente forma:
+
+~~~
+<slots>
+  <p>Parrafo 1 del slot</p>
+  <template slot="header">
+    <h3>Header del layout con slots</h3>
+  </template>
+  <p>Parrafo 2 del slot</p>
+  <template slot="footer">
+    <h3>Footer del layout con slots</h3>
+  </template>
+</slots>
+~~~
+
+Todo lo que esté fuera de los distintos templates formará parte de lo definido con la etiqueta slot en el template sin asignarle nombre (en nuestro caso dentro de las etiquetas main).
