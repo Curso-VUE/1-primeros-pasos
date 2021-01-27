@@ -22,6 +22,7 @@
 20. [Directivas (foco a input)](#directives)
 21. [Directivas (aplicar estilos)](#directives2)
 22. [Filtros](#filters)
+23. [Pliguns](#plugins)
 
 <hr>
 
@@ -825,3 +826,28 @@ Este filtro permite modificar un parámetro. En este caso si el parámetro es 21
 Para aplicar el filtro se utiliza la siguiente sintáxis:
 
 ```<p>{{ amountFormatted | arrow_filter(params)}}</p>```
+
+<a name="plugins"></a>
+## 23. Plugins
+
+Permiten añadir funcionalidad adicional a VueJS de forma sencilla.
+
+Creamos una nueva carpeta *plugins* y en su interior un archivo *aboutMe.js*.
+
+~~~
+const AboutMe = {
+  install: (Vue, options) => {
+    const { job } = options;
+    Vue.prototype.$me = (name, age) => {
+      return `Mi nombre es ${name}, tengo ${age} años y trabajo de ${job}`
+    }
+  }
+}
+
+Vue.use(AboutMe, {
+  job: 'Programador'
+})
+~~~
+
+Una vez cargado el plugin, la variable $me estará disponible en la instancia de vue y será accesible desde componentes hijos utilizando *$parent*.
+

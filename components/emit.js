@@ -4,6 +4,9 @@ Vue.component('emit', {
       carBrand: 'Toyota'
     }
   },
+  mounted() {
+    console.log(this.$parent.$me('Pipo', 23))
+  },
   template: `
     <div>
       <h2>Emitir enventos con Vuejs 2</h2>
