@@ -18,7 +18,7 @@ Vue.component('computed-properties-get-set', {
     <div>
       <h2>Computed Properties get && set</h2>
       <input v-model="amount" />
-      <p>{{ amountFormatted }}</p>
+      <p>{{ amountFormatted | string_filter('test => ')}}</p>
     </div>
   `
 });

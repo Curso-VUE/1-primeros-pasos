@@ -19,6 +19,9 @@
 17. [Computed properties con getters y setters](#computed2)
 18. [Carga de componentes dinámicos con *component*](#dynamic)
 19. [Mixins](#mixins)
+20. [Directivas (foco a input)](#directives)
+21. [Directivas (aplicar estilos)](#directives2)
+22. [Filtros](#filters)
 
 <hr>
 
@@ -752,3 +755,73 @@ Vue.component('mixins', {
 La salida que se obtiene por consola tras la carga será la siguiente:
 
 ![mixins](./images/mixins.png)
+
+<a name="directives"></a>
+## 20. Directivas (foco a input)
+
+Las directivas son atributos especiales que se colocan en las etiquetas HTML y están prefijados por v- (v-for, v-bind, v-on...). 
+
+Estas directivas permiten realizar acciones dinámicas potentes (bucles, condicionales, etc...) que no se pueden realizar en HTML por si solo.
+
+Para este ejemplo creamos una carpeta directivas y dentro un archivo *focus.js*.
+
+~~~
+Vue.directive('focus', {
+  inserted(el) {
+    el.focus();
+  }
+})
+~~~
+
+Ahora podemos utilizar v-focus dentro de un input para que en la carga el foco vaya a ese input.
+
+<a name="directives2"></a>
+## 21. Directivas (aplicar estilos)
+
+Generamos una nueva directiva *change-styles.js*
+
+~~~
+Vue.directive('change-styles', (el, binding) => {
+  el.style.backgroundColor = binding.value.backgroundColor;
+  el.style.color = binding.value.color;
+})
+~~~
+
+Ahora podemos utilizar esta directiva para cambiar estas las propiedades css **color** y **color de fondo** de un componente, bien sea de forma explícita o a través de una variable:
+
+~~~
+Vue.component('message', {
+  data () {
+    return {
+      message: 'Hola Mundo',
+      style: {
+        backgroundColor: 'red', 
+        color: 'white'
+      }
+    }
+  },
+  template: `
+    <div v-change-styles="style">
+      <h1>Componente Message</h1>
+      <p v-change-styles="{color: 'blue'}">{{message}}</p>
+    </div>
+  `
+});
+~~~
+
+<a name="filters"></a>
+## 22. Filtros
+
+Creamos una carpeta *filters* y en ella un archivo *arrow-filter.js*.
+
+~~~
+Vue.filter('arrow_filter', (value), params => {
+  return `${params} ${value}`
+})
+~~~
+
+Este filtro permite modificar un parámetro. En este caso si el parámetro es 21 devolverá => 21.
+
+Para aplicar el filtro se utiliza la siguiente sintáxis:
+
+```<p>{{ amountFormatted | arrow_filter(params)}}</p>```

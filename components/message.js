@@ -1,13 +1,17 @@
 Vue.component('message', {
   data () {
     return {
-      message: 'Hola Mundo'
+      message: 'Hola Mundo',
+      style: {
+        backgroundColor: 'red', 
+        color: 'white'
+      }
     }
   },
   template: `
-    <div>
+    <div v-change-styles="style">
       <h1>Componente Message</h1>
-      <p>{{message}}</p>
+      <p v-change-styles="{color: 'blue'}">{{message}}</p>
     </div>
   `
 });
