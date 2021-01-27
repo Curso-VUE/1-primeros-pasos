@@ -22,7 +22,10 @@
 20. [Directivas (foco a input)](#directives)
 21. [Directivas (aplicar estilos)](#directives2)
 22. [Filtros](#filters)
-23. [Pliguns](#plugins)
+23. [Plugins](#plugins)
+23. [Props](#props)
+24. [Props VS Data y reactividad](#reactivity)
+
 
 <hr>
 
@@ -851,3 +854,116 @@ Vue.use(AboutMe, {
 
 Una vez cargado el plugin, la variable $me estará disponible en la instancia de vue y será accesible desde componentes hijos utilizando *$parent*.
 
+
+<a name="props"></a>
+## 23. Props
+
+Las props son propiedades que se pasan de un componente padre a un componente hijo.
+
+Pueden definirse mediante un array:
+
+~~~
+Vue.component('props', {
+  props: ['name', 'surname'],
+  template: `
+    <div>
+      <h2>Props con VueJS 2</h2>
+      <p>{{ name }} {{ surname }}</p>
+    </div>
+  `
+})
+~~~
+
+O mediante un objeto, para de esta forma definir tipos y propiedades:
+
+~~~
+Vue.component('props', {
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    surname: {
+      type: String,
+      required: false
+    },
+    age: {
+      type: Number,
+      required: true,
+      validator: value => {
+        if (value < 0) {
+          console.error("La edad no puede ser menor que 0");
+          return false;
+        }
+        if (value < 18) {
+          console.warn("Eres menor de edad...");
+          return false;
+        }
+        return true;
+      }
+    }
+  },
+  template: `
+    <div>
+      <h2>Props con VueJS 2</h2>
+      <p>{{ name }} {{ surname }} Edad: {{age}}</p>
+    </div>
+  `
+})
+~~~
+
+<a name="child-methods"></a>
+## 24. Props VS Data y reactividad
+Las Props en Vuejs nos permiten pasar datos a un componente al momento de utilizarlo:
+
+~~~
+<super-componente :nombre="variableNombreSuperComponente" />
+~~~
+
+En este caso al componente super-componente le estamos pasando un dato de entrada llamado nombre, para utilizarlo en dicho componente haríamos lo siguiente:
+
+~~~
+<template>
+  <div>
+    {‌{ nombre }}
+  </div>
+</template>
+ 
+<script>
+export default {
+   props: ['nombre']
+}
+</script>
+~~~
+
+El problema está en que si queremos que este dato sea reactivo utilizando v-model tendríamos un error:
+~~~
+<template>
+  <div>
+    <input v-model="nombre" />
+  </div>
+</template>
+ 
+<script>
+export default {
+  props: ['nombre']
+}
+</script>
+~~~
+
+Esto significa que no podemos modificar una Prop de forma directa, para solucionar esto realmente existen muchos caminos, pero uno muy común que sirve en la mayoría de los casos es utilizar en lugar de un valor, un objeto:
+
+~~~
+<super-componente :objetoConNombre="objetoNombreSuperComponente" />
+<template>
+  <div>
+    <input v-model="objetoConNombre.nombre" />
+  </div>
+</template>
+ 
+<script>
+export default {
+  props: ['objetoConNombre']
+}
+</script>
+~~~
