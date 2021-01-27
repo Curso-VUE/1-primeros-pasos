@@ -33,9 +33,14 @@ let myMixin2 = {
 
 Vue.component('mixins', {
   mixins: [myMixin, myMixin2],
+  mounted() {
+    console.log("Mounted from component with mixins")
+  },
   template: `
   <div>
     <h2>Uso de mixins</h2>
+    <p>{{mixinData}}</p>
+    <p>{{mixinData2}}</p>
   </div>
   `
 })
