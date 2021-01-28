@@ -26,10 +26,10 @@
 23. [Props](#props)
 24. [Props VS Data y reactividad](#reactivity)
 
-
 <hr>
 
 <a name="intro"></a>
+
 ## 1. Introducción
 
 El core de vue es el siguiente:
@@ -51,8 +51,10 @@ var app = new Vue({
 });
 ~~~
 
+<hr>
 
 <a name="helloworld"></a>
+
 ## 2. Hola Mundo
 
 En esta introducción vamos a utilizar directamente el CDN de vue. Creamos un *index.html* e incluimos el script del cdn en su head:
@@ -94,7 +96,10 @@ En el *body* del HTML incluimos el template y el script con el código:
 ....
 ~~~
 
+<hr>
+
 <a name="component"></a>
+
 ## 3. Primer componente
 
 Para esta introducción vamos a reutilizar el archivo *index.html* anterior, en cargaremos el componente en la sección **head** del HTML dentro de etiquetas **script** y visualizaremos los distintos componentes que vayamos generando dentro del **div con id="app"**.
@@ -119,7 +124,10 @@ Vue.component('message', {
 });
 ~~~
 
+<hr>
+
 <a name="computed"></a>
+
 ## 4. Propiedades calculadas
 Son propiedades generadas a partir de otras propiedades del componente.
 
@@ -147,7 +155,10 @@ Vue.component('computed-properties', {
 });
 ~~~
 
+<hr>
+
 <a name="methods"></a>
+
 ## 5. Métodos
 Los métodos son funciones que ejecutan en el componente y que son lanzadas por eventos del mismo.
 
@@ -180,7 +191,10 @@ Vue.component('methods', {
 });
 ~~~
 
+<hr>
+
 <a name="binding"></a>
+
 ## 6. Data binding con v-model
 Data binding permite que una variable almacene los cambios realizados sobre ella desde el template.
 
@@ -205,7 +219,10 @@ Vue.component('vmodel', {
 
 Comprobamos como el valor de framework funciona como value del input y cuando se modifica queda reflejado en el párrafo siguiente.
 
+<hr>
+
 <a name="binding-array"></a>
+
 ## 7. Data binding con v-model y arrays
 
 
@@ -235,7 +252,10 @@ Vue.component('vmodel-checkboxes', {
 
 Desmarcando y marcando los checkboxes podemos ver como se modifica el contenido de *frameworks*.
 
+<hr>
+
 <a name="events"></a>
+
 ## 8. Eventos
 
 Los eventos se emiten siempre del componente hijo al componente padre.
@@ -290,7 +310,10 @@ Definimos la función showCarBrandFromEmitCmp en el script que instancia el comp
   </script>
 ~~~
 
+<hr>
+
 <a name="parent"></a>
+
 ## 9. Acceso a datos del componente padre
 
 Creamos en *index.html*, en la instancia del componente root una variable a la que queremos acceder desde un componente hijo:
@@ -323,7 +346,10 @@ Vue.component('parent-data', {
 
 De esta forma, utilizando ```$parent.appName``` estamos accediendo desde el componente hijo a la variable appName del componente padre. Pueden concatenrase varias llamadas a ```$parent.parent.parent...``` para subir varios niveles.
 
+<hr>
+
 <a name="child"></a>
+
 ## 10. Acceso a datos del componente hijo utilizando referencias
 
 Creamos un nuevo componente *child-data.js* en donde la variable cmpName será la que recuperaremos del componente padre:
@@ -369,8 +395,11 @@ En la instacia del componente root definimos el método *mounted* que se ejecuta
 ...
 ~~~
 
+<hr>
+
 <a name="child-methods"></a>
-##11. Acceso a metodos del componente hijo utilizando referencias
+
+## 11. Acceso a metodos del componente hijo utilizando referencias
 
 Creamos un nuevo componente *child-methods.js*:
 
@@ -422,8 +451,12 @@ mounted() {
 ...
 ~~~
 
+<hr>
+
 <a name="forms"></a>
+
 ## 12. Introducción a formularios. Login básico
+
 Creamos un nuevo componente *login-form*.
 
 Los datos del componente serán el usuario (email y contraseña) y el estado del login:
@@ -467,7 +500,10 @@ En el template hacemos uso de la directiva v-show para mostrar o no contenido ht
   `
 ~~~
 
+<hr>
+
 <a name="loops"></a>
+
 ## 13. Bucles con v-for
 
 Creamos un nuevo componente *loops.js*.
@@ -504,7 +540,10 @@ En este componente utilizamos nuevos conceptos:
 - Directiva v-if para no mostrar el elemento en el caso en el que no haya datos sobre los que iterar.
 - Como buena práctica, debemos siempre en los elementos sobre los que iteramos establecer una key única. Utilizamos *:key* para indicar que la key es una variable.
 
+<hr>
+
 <a name="conditionals"></a>
+
 ## 14. Condicionales con v-if
 
 Generamos un nuevo componente *conditionals.js*.
@@ -531,7 +570,10 @@ Vue.component('conditionals', {
 
 En función del valor que se introduzca en el input se mostrará uno u otro mensaje.
 
+<hr>
+
 <a name="slots"></a>
+
 ## 15. Slots. Ejemplo de layout
 
 Los slots permiten definir layouts en donde se pueda sobreesribir partes del cógigo.
@@ -576,7 +618,10 @@ En el *index.html* redefinimos el contenido del template de la siguiente forma:
 
 Todo lo que esté fuera de los distintos templates formará parte de lo definido con la etiqueta slot en el template sin asignarle nombre (en nuestro caso dentro de las etiquetas main).
 
+<hr>
+
 <a name="watchers"></a>
+
 ## 16. Watchers
 
 Los watchers son una zona de un componente que permite revisar de forma constante los cambios en un dato.
@@ -623,7 +668,10 @@ Establecemos un método que permita obtener por fetch un usuario random y actual
 
 Establecemos un watcher que detecte un cambio en la variable **user** y permita actualizar el valor de **oldUser**.
 
+<hr>
+
 <a name="computed2"></a>
+
 ## 17. Computed properties cpn getters y setters
 
 Permiten establecer y recuperar la información modificada de una variable sin modificar su valor.
@@ -664,7 +712,10 @@ Establecemos como variables calculadas lo siguiente:
 
 El **get** establecerá el formato que se quiere recuperar y el **set** simplemente establecerá el valor.
 
+<hr>
+
 <a name="dynamic"></a>
+
 ## 19. Carga de componentes dinámicos con *component*
 
 Permite de forma dinámica establecer los componentes que se muestran.
@@ -700,7 +751,10 @@ Vue.component('load-dynamic-components', {
 
 A la etiqueta *component* le pasamos la directiva :is en donde establecemos el nombre del componente que debe cargarse en cada momento. El evento que genera cada botón permitirá que se carguen los componentes de forma dinámica.
 
+<hr>
+
 <a name="mixins"></a>
+
 ## 19. Mixins
 
 Un mixin es una forma de heredar datos para poder reutilizar información.
@@ -760,7 +814,10 @@ La salida que se obtiene por consola tras la carga será la siguiente:
 
 ![mixins](./images/mixins.png)
 
+<hr>
+
 <a name="directives"></a>
+
 ## 20. Directivas (foco a input)
 
 Las directivas son atributos especiales que se colocan en las etiquetas HTML y están prefijados por v- (v-for, v-bind, v-on...). 
@@ -779,7 +836,10 @@ Vue.directive('focus', {
 
 Ahora podemos utilizar v-focus dentro de un input para que en la carga el foco vaya a ese input.
 
+<hr>
+
 <a name="directives2"></a>
+
 ## 21. Directivas (aplicar estilos)
 
 Generamos una nueva directiva *change-styles.js*
@@ -813,7 +873,10 @@ Vue.component('message', {
 });
 ~~~
 
+<hr>
+
 <a name="filters"></a>
+
 ## 22. Filtros
 
 Creamos una carpeta *filters* y en ella un archivo *arrow-filter.js*.
@@ -830,7 +893,10 @@ Para aplicar el filtro se utiliza la siguiente sintáxis:
 
 ```<p>{{ amountFormatted | arrow_filter(params)}}</p>```
 
+<hr>
+
 <a name="plugins"></a>
+
 ## 23. Plugins
 
 Permiten añadir funcionalidad adicional a VueJS de forma sencilla.
@@ -854,8 +920,10 @@ Vue.use(AboutMe, {
 
 Una vez cargado el plugin, la variable $me estará disponible en la instancia de vue y será accesible desde componentes hijos utilizando *$parent*.
 
+<hr>
 
 <a name="props"></a>
+
 ## 23. Props
 
 Las props son propiedades que se pasan de un componente padre a un componente hijo.
@@ -912,8 +980,12 @@ Vue.component('props', {
 })
 ~~~
 
+<hr>
+
 <a name="child-methods"></a>
+
 ## 24. Props VS Data y reactividad
+
 Las Props en Vuejs nos permiten pasar datos a un componente al momento de utilizarlo:
 
 ~~~
