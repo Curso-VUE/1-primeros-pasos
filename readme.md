@@ -23,8 +23,8 @@
 21. [Directivas (aplicar estilos)](#directives2)
 22. [Filtros](#filters)
 23. [Plugins](#plugins)
-23. [Props](#props)
-24. [Props VS Data y reactividad](#reactivity)
+24. [Props](#props)
+25. [Props VS Data y reactividad](#reactivity)
 
 <hr>
 
@@ -35,14 +35,14 @@
 El core de vue es el siguiente:
 
 Template:
-~~~
+~~~html
 <div id="app">
   {{ message }}
 </div>
 ~~~
 
 Componente:
-~~~
+~~~js
 var app = new Vue({
   el: '#app',
   data: {
@@ -59,7 +59,7 @@ var app = new Vue({
 
 En esta introducción vamos a utilizar directamente el CDN de vue. Creamos un *index.html* e incluimos el script del cdn en su head:
 
-~~~
+~~~html
 <!DOCTYPE html>
 <html>
   <head>
@@ -76,7 +76,7 @@ En esta introducción vamos a utilizar directamente el CDN de vue. Creamos un *i
 
 En el *body* del HTML incluimos el template y el script con el código:
 
-~~~
+~~~html
 ...
   <body>
     <div id="app">
@@ -108,7 +108,7 @@ Los nuevos componentes se definirán dentro de la carpeta components en archivos
 
 Generamos un nuevo componente *message.js*.
 
-~~~
+~~~js
 Vue.component('message', {
   data () {
     return {
@@ -133,7 +133,7 @@ Son propiedades generadas a partir de otras propiedades del componente.
 
 Creamos un nuevo componente *computed-properties*:
 
-~~~
+~~~js
 Vue.component('computed-properties', {
   data() {
     return {
@@ -162,9 +162,9 @@ Vue.component('computed-properties', {
 ## 5. Métodos
 Los métodos son funciones que ejecutan en el componente y que son lanzadas por eventos del mismo.
 
-Creamos un nuevo componente *methods.js
+Creamos un nuevo componente *methods.js*
 
-~~~
+~~~js
 Vue.component('methods', {
   data () {
     return {
@@ -200,7 +200,7 @@ Data binding permite que una variable almacene los cambios realizados sobre ella
 
 Creamos un nuevo componente *vmodel.js*.
 
-~~~
+~~~js
 Vue.component('vmodel', {
   data () {
     return {
@@ -228,7 +228,7 @@ Comprobamos como el valor de framework funciona como value del input y cuando se
 
 Creamos un nuevo componente *vmodel-checkboxes.js*.
 
-~~~
+~~~js
 Vue.component('vmodel-checkboxes', {
   data () {
     return {
@@ -262,7 +262,7 @@ Los eventos se emiten siempre del componente hijo al componente padre.
 
 Creamos un nuevo componente *emit.js*. En el template especificamos el nombre del evento que vamos a emitir y el parámetro que enviamos al componente padre. **El nombre del evento debe de estár en minúsculas**
 
-~~~
+~~~js
 Vue.component('emit', {
   data () {
     return {
@@ -282,7 +282,7 @@ Vue.component('emit', {
 
 En este caso, en el componente padre debemos espedificar el evento:
 
-~~~
+~~~html
 <head>
   ...
   <script src="components/event.js"></script>
@@ -297,7 +297,7 @@ En este caso, en el componente padre debemos espedificar el evento:
 
 Definimos la función showCarBrandFromEmitCmp en el script que instancia el componente root en *index.html*:
 
-~~~
+~~~html
   <script>
     new Vue({
       el: '#app',
@@ -318,7 +318,7 @@ Definimos la función showCarBrandFromEmitCmp en el script que instancia el comp
 
 Creamos en *index.html*, en la instancia del componente root una variable a la que queremos acceder desde un componente hijo:
 
-~~~
+~~~js
 ...
  new Vue({
   el: '#app',
@@ -333,13 +333,13 @@ Creamos en *index.html*, en la instancia del componente root una variable a la q
 
 Creamos un nuevo componente *parent-data.js*:
 
-~~~
+~~~js
 Vue.component('parent-data', {
   template: `
     <div>
       <h2>Acceso a datos del cmp padre desde el cmp hijo</h2>
       <p>{{ $parent.appName }}</p>
-</div>
+    </div>
   `
 });
 ~~~
@@ -354,7 +354,7 @@ De esta forma, utilizando ```$parent.appName``` estamos accediendo desde el comp
 
 Creamos un nuevo componente *child-data.js* en donde la variable cmpName será la que recuperaremos del componente padre:
 
-~~~
+~~~js
 Vue.component('child-data', {
   data () {
     return {
@@ -364,14 +364,14 @@ Vue.component('child-data', {
   template: `
     <div>
       <h2>Acceso a datos del cmp hijo desde el cmp padre</h2>
-</div>
+    </div>
   `
 });
 ~~~
 
 En *index.html* cargamos el nuevo componente y creamos la referencia:
 
-~~~
+~~~html
 <head>
   ...
     <script src="components/child-data.js"></script>
@@ -386,7 +386,7 @@ En *index.html* cargamos el nuevo componente y creamos la referencia:
 
 En la instacia del componente root definimos el método *mounted* que se ejecutará cuando se haya montado el componente root, y desde él accedemos a la variable del componente hijo.
 
-~~~
+~~~js
 ...
   mounted() {
     const cmpName = this.$refs.childData.cmpName;
@@ -403,7 +403,7 @@ En la instacia del componente root definimos el método *mounted* que se ejecuta
 
 Creamos un nuevo componente *child-methods.js*:
 
-~~~
+~~~js
 Vue.component('child-methods', {
   data () {
     return {
@@ -418,14 +418,14 @@ Vue.component('child-methods', {
   template: `
     <div>
       <h2>Acceso a métodods del cmp hijo desde el cmp padre</h2>
-</div>
+    </div>
   `
 });
 ~~~
 
 En *index.html* cargamos el nuevo componente y creamos la referencia:
 
-~~~
+~~~html
 <head>
   ...
     <script src="components/child-methods.js"></script>
@@ -440,7 +440,7 @@ En *index.html* cargamos el nuevo componente y creamos la referencia:
 
 En el método *mounted* invocamos el método del componente hijo.
 
-~~~
+~~~js
 ...
 mounted() {
 ...
@@ -460,7 +460,7 @@ mounted() {
 Creamos un nuevo componente *login-form*.
 
 Los datos del componente serán el usuario (email y contraseña) y el estado del login:
-~~~
+~~~js
   data  () {
     return {
       logged: false,
@@ -474,7 +474,7 @@ Los datos del componente serán el usuario (email y contraseña) y el estado del
 
 El método login cambiárá el estado del *logged*.
 
-~~~
+~~~js
   methods: {
     login () {
       this.logged = this.user.email === 'test@m.com' && this.user.password === "1234"
@@ -484,7 +484,7 @@ El método login cambiárá el estado del *logged*.
 
 En el template hacemos uso de la directiva v-show para mostrar o no contenido html en función de una condición.
 
-~~~
+~~~html
   template: `
     <div>
       <h2>Formulario de login</h2>
@@ -508,7 +508,7 @@ En el template hacemos uso de la directiva v-show para mostrar o no contenido ht
 
 Creamos un nuevo componente *loops.js*.
 
-~~~
+~~~js
 Vue.component('loops', {
   data () {
     return {
@@ -548,7 +548,7 @@ En este componente utilizamos nuevos conceptos:
 
 Generamos un nuevo componente *conditionals.js*.
 
-~~~
+~~~js
 Vue.component('conditionals', {
   data () {
     return {
@@ -580,7 +580,7 @@ Los slots permiten definir layouts en donde se pueda sobreesribir partes del có
 
 Generamos un nuevo componente *slots.js*.
 
-~~~
+~~~js
 Vue.component('slots', {
   template: `
   <div>
@@ -603,7 +603,7 @@ Vue.component('slots', {
 
 En el *index.html* redefinimos el contenido del template de la siguiente forma:
 
-~~~
+~~~html
 <slots>
   <p>Parrafo 1 del slot</p>
   <template slot="header">
@@ -628,7 +628,7 @@ Los watchers son una zona de un componente que permite revisar de forma constant
 
 Generamos un nuevo componente *watchers.js*:
 
-~~~
+~~~js
 Vue.component('watchers', {
   data () {
     return {
@@ -649,7 +649,7 @@ Vue.component('watchers', {
 
 Establecemos un método que permita obtener por fetch un usuario random y actualizar el valor de **user**:
 
-~~~
+~~~js
 ...
   methods: {
     async randomUser () {
@@ -678,7 +678,7 @@ Permiten establecer y recuperar la información modificada de una variable sin m
 
 Generamos un nuevo componente *computed-properties-get-set.js*
 
-~~~
+~~~js
 Vue.component('computed-properties-get-set', {
   data () {
     return {
@@ -697,7 +697,7 @@ Vue.component('computed-properties-get-set', {
 
 Establecemos como variables calculadas lo siguiente:
 
-~~~
+~~~js
   computed: {
     amountFormatted: {
       get() {
@@ -724,7 +724,7 @@ Creamos una carpeta *dynamic-components* con 3 componentes que contengan únicam
 
 Generamos un nuevo componente *load-dynamic-component.js*:
 
-~~~
+~~~js
 Vue.component('load-dynamic-components', {
   data() {
     return {
@@ -761,7 +761,7 @@ Un mixin es una forma de heredar datos para poder reutilizar información.
 
 Generamos un nuevo componente *mixiins.js* que va a contener dos mixins. En este caso, se mezclan los elementos de ambos mixin, y en el caso en el que sus keys sean iguales, se sobrescriben.
 
-~~~
+~~~js
 let myMixin = {
   mounted () {
     console.log('MIXIN 1 init');
@@ -826,7 +826,7 @@ Estas directivas permiten realizar acciones dinámicas potentes (bucles, condici
 
 Para este ejemplo creamos una carpeta directivas y dentro un archivo *focus.js*.
 
-~~~
+~~~js
 Vue.directive('focus', {
   inserted(el) {
     el.focus();
@@ -844,7 +844,7 @@ Ahora podemos utilizar v-focus dentro de un input para que en la carga el foco v
 
 Generamos una nueva directiva *change-styles.js*
 
-~~~
+~~~js
 Vue.directive('change-styles', (el, binding) => {
   el.style.backgroundColor = binding.value.backgroundColor;
   el.style.color = binding.value.color;
@@ -853,7 +853,7 @@ Vue.directive('change-styles', (el, binding) => {
 
 Ahora podemos utilizar esta directiva para cambiar estas las propiedades css **color** y **color de fondo** de un componente, bien sea de forma explícita o a través de una variable:
 
-~~~
+~~~js
 Vue.component('message', {
   data () {
     return {
@@ -881,7 +881,7 @@ Vue.component('message', {
 
 Creamos una carpeta *filters* y en ella un archivo *arrow-filter.js*.
 
-~~~
+~~~js
 Vue.filter('arrow_filter', (value), params => {
   return `${params} ${value}`
 })
@@ -891,19 +891,21 @@ Este filtro permite modificar un parámetro. En este caso si el parámetro es 21
 
 Para aplicar el filtro se utiliza la siguiente sintáxis:
 
-```<p>{{ amountFormatted | arrow_filter(params)}}</p>```
+~~~html
+<p>{{ amountFormatted | arrow_filter(params)}}</p>
+~~~
 
 <hr>
 
 <a name="plugins"></a>
 
-## 23. Plugins
+## 24. Plugins
 
 Permiten añadir funcionalidad adicional a VueJS de forma sencilla.
 
 Creamos una nueva carpeta *plugins* y en su interior un archivo *aboutMe.js*.
 
-~~~
+~~~js
 const AboutMe = {
   install: (Vue, options) => {
     const { job } = options;
@@ -924,13 +926,13 @@ Una vez cargado el plugin, la variable $me estará disponible en la instancia de
 
 <a name="props"></a>
 
-## 23. Props
+## 24. Props
 
 Las props son propiedades que se pasan de un componente padre a un componente hijo.
 
 Pueden definirse mediante un array:
 
-~~~
+~~~js
 Vue.component('props', {
   props: ['name', 'surname'],
   template: `
@@ -944,7 +946,7 @@ Vue.component('props', {
 
 O mediante un objeto, para de esta forma definir tipos y propiedades:
 
-~~~
+~~~js
 Vue.component('props', {
   props: {
     name: {
@@ -984,17 +986,17 @@ Vue.component('props', {
 
 <a name="child-methods"></a>
 
-## 24. Props VS Data y reactividad
+## 25. Props VS Data y reactividad
 
 Las Props en Vuejs nos permiten pasar datos a un componente al momento de utilizarlo:
 
-~~~
+~~~html
 <super-componente :nombre="variableNombreSuperComponente" />
 ~~~
 
 En este caso al componente super-componente le estamos pasando un dato de entrada llamado nombre, para utilizarlo en dicho componente haríamos lo siguiente:
 
-~~~
+~~~html
 <template>
   <div>
     {‌{ nombre }}
@@ -1009,7 +1011,7 @@ export default {
 ~~~
 
 El problema está en que si queremos que este dato sea reactivo utilizando v-model tendríamos un error:
-~~~
+~~~html
 <template>
   <div>
     <input v-model="nombre" />
@@ -1025,7 +1027,7 @@ export default {
 
 Esto significa que no podemos modificar una Prop de forma directa, para solucionar esto realmente existen muchos caminos, pero uno muy común que sirve en la mayoría de los casos es utilizar en lugar de un valor, un objeto:
 
-~~~
+~~~html
 <super-componente :objetoConNombre="objetoNombreSuperComponente" />
 <template>
   <div>
